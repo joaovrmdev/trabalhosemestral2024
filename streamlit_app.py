@@ -88,7 +88,9 @@ if "3. Funcionários para cliente em mês/ano" in consulta_selecionada:
         JOIN solicitacao s ON fs.id_solicitacao = s.id
         JOIN pedido p ON s.codigo_pedido = p.codigo
         JOIN funcionarios f ON fs.cpf_func = f.CPF
-        WHERE p.id_cliente = %s AND MONTH(s.data_fin) = %s AND YEAR(s.data_fin) = %s;
+        WHERE p.id_cliente = %s
+          AND s.data_fin >= DATE_TRUNC('MONTH', TO_DATE(CONCAT(%s, '-', %s, '-01'), 'YYYY-MM-DD'))
+          AND s.data_fin < DATEADD(MONTH, 1, DATE_TRUNC('MONTH', TO_DATE(CONCAT(%s, '-', %s, '-01'), 'YYYY-MM-DD')));
         """
         result = run_query(query, (cliente_id, mes, ano))
         st.write("Resultado:", result)
