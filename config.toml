@@ -1,0 +1,8 @@
+[snowflake]
+user = "joao"
+password = "Trial2345"
+account = "rlmmytx-pu52214"  
+warehouse = "compute_wh"
+database = "TrabalhoSemestral2024"
+schema = "ProjetoParte3"
+
