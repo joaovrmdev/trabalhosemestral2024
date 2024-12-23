@@ -2,19 +2,20 @@ import streamlit as st
 import snowflake.connector
 import toml
 
-# Carregar configurações do arquivo .toml
-config = toml.load("config.toml")["snowflake"]
-
 # Função para conectar ao Snowflake
 def get_snowflake_connection():
-    return snowflake.connector.connect(
-        user=config["user"],
-        password=config["password"],
-        account=config["account"],
-        warehouse=config["warehouse"],
-        database=config["database"],
-        schema=config["schema"]
+    secrets = st.secrets["snowflake"]
+
+    conn = snowflake.connector.connect(
+        user=secrets["user"],
+        password=secrets["password"],
+        account=secrets["account"],
+        warehouse=secrets["warehouse"],
+        database=secrets["database"],
+        schema=secrets["schema"]
     )
+    return conn
+
 
 # Função para executar consultas
 def run_query(query, params=None):
@@ -27,10 +28,8 @@ def run_query(query, params=None):
         cursor.close()
         conn.close()
 
-# Interface de usuário no Streamlit
 st.title("Consultas no Snowflake")
 
-# Adiciona um menu de seleção para escolher a consulta
 consulta_selecionada = st.selectbox("Escolha a consulta:", [
     "1. Serviços solicitados por cliente", 
     "2. Empresa com mais serviços na cidade", 
