@@ -4,12 +4,12 @@ import toml
 
 # Função para conectar ao Snowflake
 def get_snowflake_connection():
-    user = st.secrets["user"]
-    password = st.secrets["password"]
-    account = st.secrets["account"]
-    warehouse = st.secrets["warehouse"]
-    database = st.secrets["database"]
-    schema = st.secrets["schema"]
+    "user" = st.secrets["user"],
+    "password" = st.secrets["password"],
+    "account" = st.secrets["account"],
+    "warehouse" = st.secrets["warehouse"],
+    "database" = st.secrets["database"],
+    "schema" = st.secrets["schema"]
     
     conn = snowflake.connector.connect(
         user=user,
