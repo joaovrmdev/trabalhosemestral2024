@@ -12,9 +12,9 @@ def get_snowflake_connection():
         "database": st.secrets["database"],
         "schema": st.secrets["schema"]
    }
-    conn = Session.builder.configs(connection_parameters).create()
+   conn = Session.builder.configs(connection_parameters).create()
     
-    return conn
+   return conn
 
 
 # Função para executar consultas
