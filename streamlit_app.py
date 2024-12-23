@@ -81,6 +81,7 @@ if "3. Funcionários para cliente em mês/ano" in consulta_selecionada:
     cliente_id = st.number_input("Insira o ID do cliente (X):", min_value=1, step=1)
     mes = st.number_input("Insira o mês (Y):", min_value=1, max_value=12, step=1)
     ano = st.number_input("Insira o ano (Z):", min_value=2000, max_value=2100, step=1)
+    
     if st.button("Executar"):
         query = """
         SELECT f.nome, f.RG
@@ -90,7 +91,11 @@ if "3. Funcionários para cliente em mês/ano" in consulta_selecionada:
         JOIN funcionarios f ON fs.cpf_func = f.CPF
         WHERE p.id_cliente = %s
           AND s.data_fin >= DATE_TRUNC('MONTH', TO_DATE(CONCAT(%s, '-', %s, '-01'), 'YYYY-MM-DD'))
-          AND s.data_fin < DATEADD(MONTH, 1, DATE_TRUNC('MONTH', TO_DATE(CONCAT(%s, '-', %s, '-01'), 'YYYY-MM-DD')));
+          AND s.data_fin < DATEADD(MONTH, 1, DATE_TRUNC('MONTH', TO_DATE(CONCAT(%s, '-', %s, '-01'), 'YYYY-MM-DD')))
         """
-        result = run_query(query, (cliente_id, mes, ano))
+        
+        # Execute a consulta com os parâmetros passados (cliente_id, mes, ano)
+        result = run_query(query, (cliente_id, ano, mes, ano, mes))
+        
+        # Exibe o resultado da consulta
         st.write("Resultado:", result)
