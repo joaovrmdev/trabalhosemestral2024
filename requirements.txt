@@ -1,3 +1,3 @@
 streamlit==1.17.0  # Versão do Streamlit (use a versão mais recente ou compatível com seu código)
-snowflake-connector-python==3.0.3  # Pacote necessário para a conexão com Snowflake
+snowflake-connector-python    # Pacote necessário para a conexão com Snowflake
 toml==0.10.2  # Pacote necessário para ler o arquivo .toml (caso esteja usando)
