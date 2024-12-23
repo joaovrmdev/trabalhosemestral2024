@@ -2,30 +2,18 @@ import streamlit as st
 import snowflake.connector
 import toml
 
-# Função para conectar ao Snowflake
-def get_snowflake_connection():
-    # Usando st.secrets para pegar as credenciais de conexão do Snowflake
-    connection_parameters = {
-        "user": st.secrets["user"],
-        "password": st.secrets["password"],
-        "account": st.secrets["account"],
-        "warehouse": st.secrets["warehouse"],
-        "database": st.secrets["database"],
-        "schema": st.secrets["schema"]
-    }
-    
-    # Criando a conexão com o Snowflake
-    conn = snowflake.connector.connect(
-        user=connection_parameters["user"],
-        password=connection_parameters["password"],
-        account=connection_parameters["account"],
-        warehouse=connection_parameters["warehouse"],
-        database=connection_parameters["database"],
-        schema=connection_parameters["schema"]
-    )
-    
-    return conn
 
+config = toml.load("config.toml")["snowflake"]
+
+def get_snowflake_connection():
+    return snowflake.connector.connect(
+        user=config["user"],
+        password=config["password"],
+        account=config["account"],
+        warehouse=config["warehouse"],
+        database=config["database"],
+        schema=config["schema"]
+    )
 
 
 # Função para executar consultas
