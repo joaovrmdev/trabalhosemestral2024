@@ -46,9 +46,10 @@ if "1. Serviços solicitados por cliente" in consulta_selecionada:
         FROM solicitacao s
         JOIN pedido p ON s.codigo_pedido = p.codigo
         WHERE p.id_cliente = %s
-        AND EXTRACT(MONTH FROM s.data_fin) = EXTRACT(MONTH FROM CURRENT_DATE())
-        AND EXTRACT(YEAR FROM s.data_fin) = EXTRACT(YEAR FROM CURRENT_DATE());
+        AND DATE_TRUNC('MONTH', s.data_fin) = DATE_TRUNC('MONTH', CURRENT_DATE())
+        AND YEAR(s.data_fin) = YEAR(CURRENT_DATE());
         """
+
 
         
         result = run_query(query, (cliente_id,))
