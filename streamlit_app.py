@@ -45,13 +45,15 @@ if "1. Serviços solicitados por cliente" in consulta_selecionada:
         SELECT s.nome_servico 
         FROM solicitacao s
         JOIN pedido p ON s.codigo_pedido = p.codigo
-        WHERE p.id_cliente = %s 
-        AND EXTRACT(MONTH FROM TO_DATE(s.data_fin, 'YYYY-MM-DD')) = %s
-        AND EXTRACT(YEAR FROM TO_DATE(s.data_fin, 'YYYY-MM-DD')) = %s;
+        WHERE p.id_cliente = %s
+        AND EXTRACT(MONTH FROM s.data_fin) = EXTRACT(MONTH FROM CURRENT_DATE())
+        AND EXTRACT(YEAR FROM s.data_fin) = EXTRACT(YEAR FROM CURRENT_DATE());
         """
-        result = run_query(query, (cliente_id, mes, ano))
 
+        
+        result = run_query(query, (cliente_id,))
         st.write("Resultado:", result)
+
 
 # 2. Empresa com mais serviços na cidade
 if "2. Empresa com mais serviços na cidade" in consulta_selecionada:
