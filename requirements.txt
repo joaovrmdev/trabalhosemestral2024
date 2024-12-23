@@ -1,4 +1,4 @@
-streamlit==1.17.0  # Versão do Streamlit (use a versão mais recente ou compatível com seu código)
+streamlit
 snowflake-connector-python    # Pacote necessário para a conexão com Snowflake
 altair
-toml==0.10.2  # Pacote necessário para ler o arquivo .toml (caso esteja usando)
+toml
